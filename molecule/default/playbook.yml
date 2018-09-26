@@ -1,0 +1,6 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: ansible-role-node
+      node_version: "8.11.3"

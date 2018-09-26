@@ -1,0 +1,36 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: lxd
+lint:
+  name: yamllint
+platforms:
+  - name: ansible-role-node-test-instance-18-08
+    image: ubuntu/bionic/amd64
+  - name: ansible-role-node-test-instance-16-04
+    image: ubuntu/xenial/amd64
+  - name: ansible-role-node-test-instance-14-04
+    image: ubuntu/trusty/amd64
+  - name: ansible-role-node-test-instance-buster
+    image: debian/buster/amd64
+  - name: ansible-role-node-test-instance-stretch
+    image: debian/stretch/amd64
+  - name: ansible-role-node-test-instance-jessie
+    image: debian/jessie/amd64
+  - name: ansible-role-node-test-instance-centos7
+    image: centos/7/amd64
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  env:
+    ANSIBLE_ROLES_PATH: /var/www/My_Webs:$HOME/.ansible/roles
+    ANSIBLE_LOCAL_TEMP: $HOME/.ansible/tmp_df6vb2vfe
+    ANSIBLE_REMOTE_TEMP: $HOME/.ansible/tmp_df6vb2vfe
+scenario:
+  name: default
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

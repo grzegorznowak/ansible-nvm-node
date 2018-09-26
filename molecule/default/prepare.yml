@@ -1,0 +1,14 @@
+---
+- name: Prepare
+  hosts: all
+  gather_facts: false
+  tasks:
+    # no facts given here, need to bodge this with some creative test-ing
+    - name: Install python for Ansible (Debian)
+      raw: /usr/bin/rpm -q -f /usr/bin/rpm >/dev/null 2>&1 || (test -e /usr/bin/python || (apt -y update && apt install -y python-minimal))
+      changed_when: false
+      ignore_errors: true
+    - name: Install python for Ansible (Redhat) - it's ok for the process to error out here!
+      raw: /usr/bin/rpm -q -f /usr/bin/rpm >/dev/null 2>&1 && (test -e /usr/bin/python || (yum update && yum install python-minimal))
+      changed_when: false
+      ignore_errors: true

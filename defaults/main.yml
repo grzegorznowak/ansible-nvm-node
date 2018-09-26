@@ -1,0 +1,7 @@
+---
+# defaults file for node
+nvm_install_script_version: "0.33.11"
+nvm_user_name: "root"
+nvm_dir: "/var/lib/nvm"  # for global installation
+nvm_node_version: "8.11.3"
+# nvm_dir: "~"           # for user installation -> isn't working yet however

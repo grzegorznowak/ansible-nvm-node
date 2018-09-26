@@ -1,0 +1,10 @@
+#!/bin/bash
+mkdir -p {{ nvm_dir }}
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v{{ nvm_install_script_version }}/install.sh | NVM_DIR="{{ nvm_dir }}" bash
+
+export NVM_DIR="{{ nvm_dir }}"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+nvm ls-remote && nvm install {{ nvm_node_version }}
