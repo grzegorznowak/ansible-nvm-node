@@ -4,7 +4,7 @@ galaxy_info:
   description: Installs node via nvm globally; includes molecule testing framework.
   company: "Spottmedia Ltd."
   license: "WTFPL"
-  role_name: nvm-node
+  role_name: nvm_node
   min_ansible_version: 2.4
 
   platforms:
@@ -18,7 +18,7 @@ galaxy_info:
         - jessie
         - stretch
         - buster
-    - name: CentOS
+    - name: EL
       versions:
         - 7
   galaxy_tags: ['node', 'npm', 'nvm', 'molecule']

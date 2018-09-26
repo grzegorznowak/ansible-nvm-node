@@ -55,7 +55,7 @@ Currently builds and integrates on these distros:
       vars:
         nvm_node_version: "your.node.version"
       roles:
-        - role: grzegorznowak.nvm-node        
+        - role: grzegorznowak.nvm_node        
 
 ## Testing
 
