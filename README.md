@@ -3,8 +3,8 @@
 Installs node via NVM on Debians and Redhats.
 
 ## Dislaimer ## 
-It's a pretty bespoke installation of node that doesn't rely on any of apt/yum goodies 
-nor it follows the *recommended* way of using NVM.
+It's pretty bespoke installation of node that doesn't rely on any of apt/yum goodies 
+nor it follows the *recommended* (@see https://github.com/creationix/nvm/issues/1533) way of using NVM.
 Additionally versioning is only achievable via Ansible itself. 
 Please make sure the setup given here is the one you actually do require on your end.
 I would say it's __70%__ for DEV purposes and __30%__ for live. 
