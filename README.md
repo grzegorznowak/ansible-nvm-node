@@ -68,7 +68,7 @@ Currently builds and integrates on these distros:
 ### Requirements
 
 * https://molecule.readthedocs.io/en/latest/installation.html
-* [specific molecule LXD install doc](molecule/default/tests/INSTALL.rst)
+* [specific molecule LXD install doc](molecule/default/INSTALL.rst)
 
 
 ### Testing with lxc containers
