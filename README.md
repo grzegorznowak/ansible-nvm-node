@@ -2,6 +2,12 @@
 
 Installs node via NVM on Debians and Redhats.
 
+## installation ##
+
+either
+* `ansible-galaxy install grzegorznowak.nvm_node`
+* clone the repo directly
+
 ## Dislaimer ## 
 It's pretty bespoke installation of node that doesn't rely on any of apt/yum goodies 
 nor it follows the *recommended* (@see https://github.com/creationix/nvm/issues/1533) way of using NVM.
