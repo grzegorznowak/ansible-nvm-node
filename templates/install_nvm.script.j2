@@ -1,4 +1,5 @@
 #!/bin/bash
+
 mkdir -p {{ nvm_dir }}
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/v{{ nvm_install_script_version }}/install.sh | NVM_DIR="{{ nvm_dir }}" bash
 
@@ -8,3 +9,7 @@ export NVM_DIR="{{ nvm_dir }}"
 
 
 nvm ls-remote && nvm install {{ nvm_node_version }}
+
+# make the whatever version we just installed the default one
+nvm use {{ nvm_node_version }}
+nvm alias default {{ nvm_node_version }}

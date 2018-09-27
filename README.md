@@ -63,6 +63,10 @@ Currently builds and integrates on these distros:
       roles:
         - role: grzegorznowak.nvm_node        
 
+## Upgrading node
+
+Simply replace `nvm_node_version` with whatever version you want to be using globally and rerun the playbook
+
 ## Testing
 
 ### Requirements
