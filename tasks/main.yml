@@ -15,5 +15,8 @@
 - name: We love hanlers
   meta: flush_handlers
 
-- name: Make the binary always discoverable by symlinking to a $PATH path
+- name: Make the node binary always discoverable by symlinking to a $PATH path
   file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/node" dest="/usr/bin/node" state=link mode="u+rwx,g+rx,o+rx"
+
+- name: Make the npm binary always discoverable by symlinking to a $PATH path
+  file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm" dest="/usr/bin/npm" state=link mode="u+rwx,g+rx,o+rx"
