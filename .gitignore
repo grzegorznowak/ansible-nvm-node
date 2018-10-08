@@ -1,3 +1,4 @@
 .idea
 __pycahce__
 *.pyc
+pytestdebug.log
