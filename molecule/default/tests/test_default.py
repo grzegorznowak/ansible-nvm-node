@@ -31,7 +31,8 @@ def test_user_node_version_ok(host):
         assert cmd.stderr == ''
         assert cmd.stdout == 'v8.11.3'
 
-# unfortunately the tests below don't work reliably yet. There is some specificality in the
+# unfortunately the tests below don't work reliably yet.
+# There is something specific in the
 # testinfra's sudo command that make it not use the proper environment.
 # pausing on that for now as having more urgent things to pursue
 #

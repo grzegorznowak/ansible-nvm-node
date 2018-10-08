@@ -5,8 +5,9 @@
 - include: setup-Debian.yml
   when: ansible_os_family == "Debian"
 
+  # make it so that anyone can use it!
 - name: Create the target VNM dir
-  file: path="{{ nvm_dir }}" state=directory owner="{{ nvm_user_name }}" mode="o+rwx" recurse=true # make it so that anyone can use it!
+  file: path="{{ nvm_dir }}" state=directory owner="{{ nvm_user_name }}" mode="o+rwx"
 
 - name: Copy over nvm installation script
   template: src="install_nvm.script.j2" dest="{{ nvm_dir }}/install_nvm.script" mode="u+x,g+x" owner="{{ nvm_user_name }}"
