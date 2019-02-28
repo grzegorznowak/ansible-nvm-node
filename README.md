@@ -29,7 +29,7 @@ No dependencies, just note it will install `wget` to fetch the nvm installation 
 
 ## Coverage
 
-Currently builds and integrates on these distros:
+Currently builds and integrates on those distros:
 
 ##### Ubuntu: 18.04, 16.04, 14.04
 ##### Debian: buster, stretch, jessie
