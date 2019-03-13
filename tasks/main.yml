@@ -46,7 +46,7 @@
 
 - name: Install global packages.
   npm:
-    name: "{{item}}"
+    name: "{{ item }}"
     global: true
   loop: "{{ nvm_install_globally }}"
 
