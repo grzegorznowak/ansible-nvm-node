@@ -44,6 +44,7 @@ Currently builds and integrates on those distros:
                                             # but I've not covered that in tests etc.  
     nvm_dir: "/var/lib/nvm"                 # for global (default) installation. Follow the same rule as the nvm_user_name variable
     nvm_node_version: "8.11.3"              # the node version to install via nvm
+    nvm_install_globally: []                # libraries to intall globally and symlink, look further down for details
              
 
 ## Example playbook 
@@ -69,6 +70,16 @@ Currently builds and integrates on those distros:
 
 Simply replace `nvm_node_version` with whatever version you want to be using globally and rerun the playbook
 
+
+## Installing global packages
+
+For the best coherency you are strongly encouraged to install global packages using this role too, in which case 
+just edit the `nvm_install_globally` variable, as follows:
+
+`nvm_install_globally: ['gulp']` 
+
+and that will install global gulp and put a symlink to global $PATH for specific environments to access it (like cron)
+ 
 ## Testing
 
 ### Requirements

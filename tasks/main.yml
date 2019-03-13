@@ -10,7 +10,8 @@
   file: path="{{ nvm_dir }}" state=directory owner="{{ nvm_user_name }}" mode="o+rwx"
 
 - name: Copy over nvm installation script
-  template: src="install_nvm.script.j2" dest="{{ nvm_dir }}/install_nvm.script" mode="u+x,g+x" owner="{{ nvm_user_name }}"
+  template: src="install_nvm.script.j2" dest="{{ nvm_dir }}/install_nvm.script"
+            mode="u+x,g+x" owner="{{ nvm_user_name }}"
   notify: Execute the nvm installation script
 
 - name: We love hanlers
@@ -36,7 +37,20 @@
   when: ansible_os_family == "RedHat"
 
 - name: Make the node binary always discoverable by symlinking to a system bin PATH that cron sees by default too
-  file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/node" dest="/usr/bin/node" state=link mode="u+rwx,g+rx,o+rx"
+  file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/node"
+        dest="/usr/bin/node" state=link mode="u+rwx,g+rx,o+rx"
 
 - name: Make the npm binary always discoverable by symlinking to a system bin PATH that cron sees by default too
-  file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm" dest="/usr/bin/npm" state=link mode="u+rwx,g+rx,o+rx"
+  file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm"
+        dest="/usr/bin/npm" state=link mode="u+rwx,g+rx,o+rx"
+
+- name: Install global packages.
+  npm:
+    name: "{{item}}"
+    global: true
+  loop: "{{ nvm_install_globally }}"
+
+- name: Symlink global packages into PATH for specific environments (like cron's) to be able to access them.
+  file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item }}"
+        dest="/usr/bin/{{ item }}" state=link mode="u+rwx,g+rx,o+rx"
+  loop: "{{ nvm_install_globally }}"
