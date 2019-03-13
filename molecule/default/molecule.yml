@@ -18,8 +18,6 @@ platforms:
     image: debian/stretch/amd64
   - name: ansible-role-node-test-instance-jessie
     image: debian/jessie/amd64
-  - name: ansible-role-node-test-instance-centos7
-    image: centos/7/amd64
 provisioner:
   name: ansible
   lint:

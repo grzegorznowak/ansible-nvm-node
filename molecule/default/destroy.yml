@@ -11,5 +11,5 @@
         name: "{{ item.name }}"
         state: absent
         force_stop: "{{ item.force_stop | default(true) }}"
-      timeout: 6000
+        timeout: 6000
       with_items: "{{ molecule_yml.platforms }}"
