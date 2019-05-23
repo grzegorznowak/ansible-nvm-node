@@ -16,7 +16,7 @@ def test_node_version_ok(host):
 def test_global_gulp_version_ok(host):
     cmd = host.run("gulp -v")
     assert cmd.stderr == ''
-    assert 'CLI version 2.0.1' in cmd.stdout
+    assert 'CLI version' in cmd.stdout
 
     cmd = host.run("sudo -u www-data which gulp")
     assert cmd.stderr == ''
