@@ -14,7 +14,9 @@
 - name: Copy over nvm installation script
   template: src="install_nvm.script.j2" dest="{{ nvm_dir }}/install_nvm_{{ nvm_node_version }}.script"
             mode="u+x,g+x" owner="{{ nvm_user_name }}"
-  notify: Execute the nvm installation script
+  notify:
+    - Execute the nvm installation script
+    - Install new global packages
 
 - name: We love hanlers
   meta: flush_handlers
@@ -45,9 +47,6 @@
 - name: Make the npm binary always discoverable by symlinking to a system bin PATH that cron sees by default too
   file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm"
         dest="/usr/bin/npm" state=link mode="u+rwx,g+rx,o+rx"
-  notify:
-    - Uninstall previous global packages
-    - Install new global packages
 
 - name: We love hanlers
   meta: flush_handlers

@@ -3,16 +3,7 @@
 - name: Execute the nvm installation script
   command: "{{ nvm_dir }}/install_nvm_{{ nvm_node_version }}.script"
 
-- name: Uninstall previous global packages
-  npm:
-    name: "{{ item }}"
-    global: true
-  loop: "{{ nvm_install_globally }}"
-
 - name: Install new global packages
-  npm:
-    name: "{{ item }}"
-    global: true
-    executable: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm"
+  shell : ". /root/.bashrc && {{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm install --global {{item}}"
   loop: "{{ nvm_install_globally }}"
 
