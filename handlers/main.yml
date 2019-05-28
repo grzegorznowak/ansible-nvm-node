@@ -1,4 +1,4 @@
 ---
 # handlers file for node
 - name: Execute the nvm installation script
-  command: "{{ nvm_dir }}/install_nvm.script"
+  command: "{{ nvm_dir }}/install_nvm_{{ nvm_node_version }}.script"

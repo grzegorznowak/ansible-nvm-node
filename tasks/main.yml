@@ -9,8 +9,10 @@
 - name: Create the target VNM dir
   file: path="{{ nvm_dir }}" state=directory owner="{{ nvm_user_name }}" mode="o+rwx"
 
+  # variablize the name of the installation script so it fire handlers properly when
+  # updating from version to version
 - name: Copy over nvm installation script
-  template: src="install_nvm.script.j2" dest="{{ nvm_dir }}/install_nvm.script"
+  template: src="install_nvm.script.j2" dest="{{ nvm_dir }}/install_nvm_{{ nvm_node_version }}.script"
             mode="u+x,g+x" owner="{{ nvm_user_name }}"
   notify: Execute the nvm installation script
 
