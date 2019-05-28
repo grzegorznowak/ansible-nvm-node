@@ -16,8 +16,6 @@ platforms:
     image: debian/buster/amd64
   - name: ansible-role-node-test-instance-stretch
     image: debian/stretch/amd64
-  - name: ansible-role-node-test-instance-jessie
-    image: debian/jessie/amd64
 provisioner:
   name: ansible
   lint:

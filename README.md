@@ -32,7 +32,7 @@ No dependencies, just note it will install `wget` to fetch the nvm installation 
 Currently builds and integrates on those distros:
 
 ##### Ubuntu: 18.04, 16.04, 14.04
-##### Debian: buster, stretch, jessie
+##### Debian: buster, stretch
 ##### CentOS: 7  
  
 
@@ -87,6 +87,13 @@ and that will install global gulp and put a symlink to global $PATH for specific
 * https://molecule.readthedocs.io/en/latest/installation.html
 * [specific molecule LXD install doc](molecule/default/INSTALL.rst)
 
+as of now (28.05.2019), package versions of `molecule` and `testinfra` are incompatible
+but it's still posible to use them as long as you install `testinfra` first, like:
+
+    pip install testinfra molecule
+    
+if you do it the other way around you might be getting runtime errors from python 
+on the testing phase
 
 ### Testing with lxc containers
 
