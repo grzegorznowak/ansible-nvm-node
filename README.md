@@ -11,12 +11,12 @@ either
 * clone the repo directly
 
 ## Dislaimer ## 
-It's pretty bespoke installation of node that doesn't rely on any of apt/yum goodies 
+It's a pretty bespoke installation of node that doesn't rely on any of apt/yum goodies 
 nor it follows the *recommended* (@see https://github.com/creationix/nvm/issues/1533) way of using NVM.
 Additionally versioning is only achievable via Ansible itself. 
 Please make sure the setup given here is the one you actually do require on your end.
 I would say it's __70%__ for DEV purposes and __30%__ for live. 
-And __0%__ if you plan having many users/roles use it on a single server - it's not going to fly in the current state 
+And __0%__ if you plan having many users/roles using it on a single server - it's not going to fly in the current state 
 (though might work at some point with relatively minimal extra love added).
 
 The crux is it installs nvm into a global path and symlinks it back to `/usr/local/bin` for general accessibility, and hijacks global bashrc to include the NVM's paths for each user on the system.
