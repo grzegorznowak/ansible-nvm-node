@@ -14,12 +14,10 @@
 - name: Copy over nvm installation script
   template: src="install_nvm.script.j2" dest="{{ nvm_dir }}/install_nvm_{{ nvm_node_version }}.script"
             mode="u+x,g+x" owner="{{ nvm_user_name }}"
-  notify:
-    - Execute the nvm installation script
-    - Install new global packages
+  register: "nvm_installation_script_changed"
 
-- name: We love hanlers
-  meta: flush_handlers
+- include: handlers/main.yml
+  when: nvm_installation_script_changed is defined and nvm_installation_script_changed.changed == True
 
 - name: Add the NVM's variables to all the profiles in the system (Debian)
   blockinfile: |
