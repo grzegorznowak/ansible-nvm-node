@@ -2,7 +2,5 @@
 - name: Install dependencies
   yum:
     update_cache: true
-    name: '{{ item }}'
+    name: wget
     state: present
-  with_items:
-    - wget
