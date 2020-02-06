@@ -17,7 +17,7 @@
   register: "nvm_installation_script_changed"
 
 - include: handlers/main.yml
-  when: nvm_installation_script_changed is defined and nvm_installation_script_changed.changed == True
+  when: nvm_installation_script_changed is defined and nvm_installation_script_changed.changed
 
 - name: Add the NVM's variables to all the profiles in the system (Debian)
   blockinfile: |
