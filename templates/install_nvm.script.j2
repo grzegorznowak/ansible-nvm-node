@@ -1,7 +1,7 @@
 #!/bin/bash
 
 mkdir -p {{ nvm_dir }}
-wget -qO- https://raw.githubusercontent.com/creationix/nvm/v{{ nvm_install_script_version }}/install.sh | NVM_DIR="{{ nvm_dir }}" bash
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v{{ nvm_install_script_version }}/install.sh | NVM_DIR="{{ nvm_dir }}" bash
 
 export NVM_DIR="{{ nvm_dir }}"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
