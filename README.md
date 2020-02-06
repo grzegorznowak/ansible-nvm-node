@@ -1,4 +1,4 @@
-[![Build Status](https://build.spottmedia.com/buildStatus/icon?job=ansible_role_nvm_node)](https://build.spottmedia.com/job/ansible_role_nvm_node)
+[![Build Status](https://build.spottmedia.com/buildStatus/icon?job=ansible_role_nvm_node)](https://build.spottmedia.com/buildStatus/icon?job=ansible_role_nvm_node)
 
 # Ansible NVM Node
 
