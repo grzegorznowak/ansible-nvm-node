@@ -23,8 +23,7 @@
   blockinfile: |
     dest=/etc/bash.bashrc backup=no
     insertbefore="# If not running interactively"
-    content="cd ~
-             export NVM_DIR=\"{{ nvm_dir }}\"
+    content="export NVM_DIR=\"{{ nvm_dir }}\"
              [ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\"
              [ -s \"$NVM_DIR/bash_completion\" ] && \. \"$NVM_DIR/bash_completion\""
   when: ansible_os_family == "Debian"
@@ -32,8 +31,7 @@
 - name: Add the NVM's variables to all the profiles in the system (RedHat)
   blockinfile: |
     dest=/etc/bashrc backup=no
-    content="cd ~
-             export NVM_DIR=\"{{ nvm_dir }}\"
+    content="export NVM_DIR=\"{{ nvm_dir }}\"
              [ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\"
              [ -s \"$NVM_DIR/bash_completion\" ] && \. \"$NVM_DIR/bash_completion\""
   when: ansible_os_family == "RedHat"
