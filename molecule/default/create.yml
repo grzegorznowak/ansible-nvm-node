@@ -12,9 +12,14 @@
         source:
           type: image
           mode: pull
-          server: https://images.linuxcontainers.org
-          protocol: lxd
+          server: https://images.linuxcontainers.org/
+          protocol: simplestreams
           alias: "{{ item.image }}"
+        devices:
+          root:
+            path: "/"
+            type: "disk"
+            pool: "{{ lookup('env', 'LXD_POOL') | default('default', true) }}"
         profiles: ["default"]
         wait_for_ipv4_addresses: true
         timeout: 6000

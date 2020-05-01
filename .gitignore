@@ -2,4 +2,4 @@
 __pycahce__
 *.pyc
 pytestdebug.log
-devenv
+*env

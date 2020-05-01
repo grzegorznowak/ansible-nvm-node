@@ -20,10 +20,6 @@ provisioner:
   name: ansible
   lint:
     name: ansible-lint
-  env:
-    ANSIBLE_ROLES_PATH: /var/www/My_Webs:$HOME/.ansible/roles
-    ANSIBLE_LOCAL_TEMP: $HOME/.ansible/tmp_df6vb2vfe
-    ANSIBLE_REMOTE_TEMP: $HOME/.ansible/tmp_df6vb2vfe
 scenario:
   name: default
 verifier:

@@ -1,7 +1,7 @@
 extends: default
 
 ignore: |
-  devenv
+  *env
 
 rules:
   braces:
