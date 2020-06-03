@@ -43,8 +43,10 @@ def test_global_libraries(host):
 def test_cron_environment_for_global_libs(host):
 
     # make sure cron sees global libraries in correct locations
-    assert host.run("cat /tmp/which_gulp").stdout.rstrip() == '/usr/bin/gulp'
-    assert host.run("cat /tmp/which_lighthouse").stdout.rstrip() == '/usr/bin/lighthouse'
+    assert host.run("cat /tmp/which_gulp").stdout.rstrip() == \
+           '/usr/bin/gulp'
+    assert host.run("cat /tmp/which_lighthouse").stdout.rstrip() == \
+           '/usr/bin/lighthouse'
 
 
 def test_user_node_version_ok(host):
