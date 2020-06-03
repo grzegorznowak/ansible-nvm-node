@@ -14,10 +14,10 @@ platforms:
     image: ubuntu/xenial/amd64
   - name: ansible-nvm-node-test-14-04
     image: ubuntu/trusty/amd64
-  - name: ansible-nvm-node-test-buster
-    image: debian/buster/amd64
-  - name: ansible-nvm-node-test-stretch
-    image: debian/stretch/amd64
+#  - name: ansible-nvm-node-test-buster
+#    image: debian/buster/amd64
+#  - name: ansible-nvm-node-test-stretch
+#    image: debian/stretch/amd64
 provisioner:
   name: ansible
   lint:
