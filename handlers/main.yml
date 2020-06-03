@@ -1,8 +1,0 @@
----
-# handlers file for node
-- name: Execute the nvm installation script
-  command: "{{ nvm_dir }}/install_nvm_{{ nvm_node_version }}.script"
-
-- name: Install new global packages
-  shell: ". /root/.bashrc && {{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm install --global {{ item }}"
-  loop: "{{ nvm_install_globally }}"

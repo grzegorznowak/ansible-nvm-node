@@ -9,15 +9,19 @@
 - name: Create the target VNM dir
   file: path="{{ nvm_dir }}" state=directory owner="{{ nvm_user_name }}" mode="o+rwx"
 
-  # variablize the name of the installation script so it fire handlers properly when
+  # variablize the name of the installation script so it fire installation script properly when
   # updating from version to version
 - name: Copy over nvm installation script
   template: src="install_nvm.script.j2" dest="{{ nvm_dir }}/install_nvm_{{ nvm_node_version }}.script"
             mode="u+x,g+x" owner="{{ nvm_user_name }}"
-  register: "nvm_installation_script_changed"
+  register: "nvm_installation_script_template"
 
-- include: handlers/main.yml
-  when: nvm_installation_script_changed is defined and nvm_installation_script_changed.changed
+- name: Execute the nvm installation script
+  command: "{{ nvm_dir }}/install_nvm_{{ nvm_node_version }}.script"
+  when: nvm_installation_script_template is defined and nvm_installation_script_template.changed
+  # the tag is needed so that linter wouldn't complain about this not being handler,
+  # and handlers are so unstable I eventually decided not to use them in this role
+  tags: skip_ansible_lint
 
 - name: Add the NVM's variables to all the profiles in the system (Debian)
   blockinfile: |
@@ -44,8 +48,11 @@
   file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm"
         dest="/usr/bin/npm" state=link mode="u+rwx,g+rx,o+rx"
 
-- name: We love handlers
-  meta: flush_handlers
+- name: Install global packages
+  shell:
+    cmd: ". /root/.bashrc && {{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm install --global {{ item }}"
+    creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item }}"
+  loop: "{{ nvm_install_globally }}"
 
 - name: Symlink global packages into PATH for specific environments (like cron's) to be able to access them.
   file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item }}"

@@ -6,15 +6,17 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: ansible-role-node-test-instance-18-08
+  - name: ansible-nvm-node-test-20-04
+    image: ubuntu/focal/amd64
+  - name: ansible-nvm-node-test-18-08
     image: ubuntu/bionic/amd64
-  - name: ansible-role-node-test-instance-16-04
+  - name: ansible-nvm-node-test-16-04
     image: ubuntu/xenial/amd64
-  - name: ansible-role-node-test-instance-14-04
+  - name: ansible-nvm-node-test-14-04
     image: ubuntu/trusty/amd64
-  - name: ansible-role-node-test-instance-buster
+  - name: ansible-nvm-node-test-buster
     image: debian/buster/amd64
-  - name: ansible-role-node-test-instance-stretch
+  - name: ansible-nvm-node-test-stretch
     image: debian/stretch/amd64
 provisioner:
   name: ansible

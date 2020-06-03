@@ -16,7 +16,19 @@
       yum: name=sudo state=present
       when: ansible_os_family == "RedHat"
 
+    - name: Crontab for which-ing gulp
+      cron:
+        name: "which gulp"
+        minute: "*"
+        job: "which gulp > /tmp/which_gulp"
+
+    - name: Crontab for which-ing lighthouse
+      cron:
+        name: "which lighthouse"
+        minute: "*"
+        job: "which lighthouse > /tmp/which_lighthouse"
+
   roles:
     - role: ansible-nvm-node
-      nvm_node_version: "8.11.3"
-      nvm_install_globally: ['gulp']
+      nvm_node_version: "10.16.3"
+      nvm_install_globally: ['gulp', 'lighthouse']
