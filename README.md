@@ -31,7 +31,7 @@ No dependencies, just note it will install `wget` to fetch the nvm installation 
 
 Currently builds and integrates on those distros:
 
-##### Ubuntu: 18.04, 16.04, 14.04
+##### Ubuntu: 20.04, 18.04, 16.04, 14.04
 ##### Debian: buster, stretch
 ##### CentOS: 7  
  
@@ -39,33 +39,35 @@ Currently builds and integrates on those distros:
 ## Variables
 
 ### defaults
+```YAML
     nvm_install_script_version: "0.33.11"   # the nvm installation script to use (latest stable version as of writing this)
     nvm_user_name: "root"                   # you can use a different user, and you might in the end achieve the more nvm-ish approach
                                             # but I've not covered that in tests etc.  
     nvm_dir: "/var/lib/nvm"                 # for global (default) installation. Follow the same rule as the nvm_user_name variable
     nvm_node_version: "8.11.3"              # the node version to install via nvm
     nvm_install_globally: []                # libraries to intall globally and symlink, look further down for details
-             
+```      
 
 ## Example playbook 
 ##### when cloned from github
-
+```YAML
     ---
     - hosts: all
       vars:
         nvm_node_version: "4.1.1"
       roles:
         - role: ansible-nvm-node
-        
+```        
 ##### when from ansible-galaxy
 
+```YAML
     ---
     - hosts: all
       vars:
         nvm_node_version: "your.node.version"
       roles:
         - role: grzegorznowak.nvm_node        
-
+```
 ## Upgrading node
 
 Simply replace `nvm_node_version` with whatever version you want to be using globally and rerun the playbook
@@ -76,30 +78,54 @@ Simply replace `nvm_node_version` with whatever version you want to be using glo
 For the best coherency you are strongly encouraged to install global packages using this role too, in which case 
 just edit the `nvm_install_globally` variable, as follows:
 
-`nvm_install_globally: ['gulp']` 
+```YAML
+nvm_install_globally: ['gulp']
+```
+also can use version targeting for global packages:
 
-and that will install global gulp and put a symlink to global $PATH for specific environments to access it (like cron)
+```YAML
+nvm_install_globally:
+  - name: yarn
+    version: 1.9.4
+```
+
+or mix both:
+
+```YAML
+nvm_install_globally:
+  - gulp
+  - lighthouse
+  - name: yarn
+    version: 1.9.4
+```
+
+and that will install listed libraries and put a symlink to global $PATH 
+for specific environments to access it (like cron)
  
 ## Testing
 
 ### Requirements
 
+you may use a helper script that will install virtual env with all the needed stuff 
+    `./bootstrap_test.sh`
+
+the simply activate the virtualenv with `source test_env/bin/activate`
+
+or just do it 100% manually for better control
+
     sudo apt install virtualenv python3-pip
-    virtualenv testenv --python=python3
-    source testenv/bin/activate
+    virtualenv test_env --python=python3
+    source test_env/bin/activate
     pip install -r test-requirements.txt
     
-if you do it the other way around you might be getting runtime errors from python 
-on the testing phase
-
 ### Testing with lxc containers
 
     molecule test
 
 ### Additional perks from molecule
 
-Remember you can also do crazy stuff like `molecule converge` to simply bring instance(s) at will and then tear them down
-with `molecule destroy`. The sky is the limit here really!
+You can do all sort of super handy stuff like `molecule converge` to simply bring instance(s) at will 
+and then tear them down with `molecule destroy`. The sky is the limit here really!
 
 ## Sponsored by
 

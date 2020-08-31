@@ -48,13 +48,48 @@
   file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm"
         dest="/usr/bin/npm" state=link mode="u+rwx,g+rx,o+rx"
 
-- name: Install global packages
+### ---- Install version-agnostic and version-aware version of globals ---- ###
+### TODO: DRY it some way smart
+
+- name: Install global packages (version and name given)
   shell:
-    cmd: ". /root/.bashrc && {{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm install --global {{ item }}"
+    cmd: ". /root/.bashrc && {{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm \
+    install --global {{ item.name }}@{{ item.version }}"
+    creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item.name }}"
+  loop: "{{ nvm_install_globally }}"
+  when: item.name is defined and item.version is defined
+
+- name: Install global packages (name given in plain string - hopefully)
+  shell:
+    cmd: ". /root/.bashrc && {{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm \
+    install --global {{ item }}"
     creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item }}"
   loop: "{{ nvm_install_globally }}"
+  when: item.name is not defined and item.version is not defined
+
+- name: Install global packages (name given in a dictionary)
+  shell:
+    cmd: ". /root/.bashrc && {{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm \
+    install --global {{ item.name }}"
+    creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item.name }}"
+  loop: "{{ nvm_install_globally }}"
+  when: item.name is defined and item.version is not defined
+
+### --------------- END ------------- ####
+
+### ---- Symlink version-agnostic and version-aware version of globals ---- ###
+### TODO: DRY it some way smart
+
+- name: Symlink global packages into PATH for specific environments (like cron's) to be able to access them.
+  file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item.name }}"
+        dest="/usr/bin/{{ item.name }}" state=link mode="u+rwx,g+rx,o+rx"
+  loop: "{{ nvm_install_globally }}"
+  when: item.name is defined
 
 - name: Symlink global packages into PATH for specific environments (like cron's) to be able to access them.
   file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item }}"
         dest="/usr/bin/{{ item }}" state=link mode="u+rwx,g+rx,o+rx"
   loop: "{{ nvm_install_globally }}"
+  when: item.name is not defined
+
+### --------------- END ------------- ####

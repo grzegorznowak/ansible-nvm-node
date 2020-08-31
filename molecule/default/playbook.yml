@@ -1,8 +1,14 @@
 ---
-- name: Converge
+- name: Converge Helpers
   hosts: all
 
   pre_tasks:
+
+    - name: Seems lxc debians don't have cron by default
+      apt:
+        name: cron
+      when: ansible_distribution == 'Debian'
+
     - name: Add a non-root user to test nvm
       user:
         name: nvm_tester
@@ -28,7 +34,28 @@
         minute: "*"
         job: "which lighthouse > /tmp/which_lighthouse"
 
+    - name: Crontab for which-ing Yarn
+      cron:
+        name: "which yarn"
+        minute: "*"
+        job: "which yarn > /tmp/which_yarn"
+
+    - name: Crontab for which-ing pm2
+      cron:
+        name: "which pm2"
+        minute: "*"
+        job: "which yarn > /tmp/which_pm2"
+
+- name: Converge nvm with global packages as a combination of old and new format
+  hosts: all
+
   roles:
     - role: ansible-nvm-node
       nvm_node_version: "10.16.3"
-      nvm_install_globally: ['gulp', 'lighthouse']
+      nvm_install_globally:
+        - gulp
+        - lighthouse
+        - name: yarn
+          version: 1.9.4
+        - name: pm2
+          version: 3.1.2

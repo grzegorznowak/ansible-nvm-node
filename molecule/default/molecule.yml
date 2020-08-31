@@ -14,11 +14,21 @@ platforms:
     image: ubuntu/xenial/amd64
   - name: ansible-nvm-node-test-14-04
     image: ubuntu/trusty/amd64
-#  - name: ansible-nvm-node-test-buster
-#    image: debian/buster/amd64
-#  - name: ansible-nvm-node-test-stretch
-#    image: debian/stretch/amd64
+  - name: ansible-nvm-node-test-buster
+    image: debian/buster/amd64
+  - name: ansible-nvm-node-test-stretch
+    image: debian/stretch/amd64
 provisioner:
+  config_options:
+    defaults:
+      bin_ansible_callbacks: true
+      display_ok_hosts: false
+      display_skipped_hosts: false
+      forks: 50
+      internal_poll_interval: 0.001
+      stdout_callback: yaml
+    ssh_connection:
+      pipelining: true
   name: ansible
   lint:
     name: ansible-lint
