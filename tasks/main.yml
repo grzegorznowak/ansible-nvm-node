@@ -94,30 +94,9 @@
 
 ### --------------- END ------------- ####
 
-### ---- Symlink version-agnostic and version-aware version of globals ---- ###
-### TODO: DRY it some way smart
 
-# making sure the package's bin actually exists
-- name: "Stats over {{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item.name }}"
-  stat:
-    path: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item.name }}"
-  register: package_stats
-
-- name: Symlink global packages into PATH for specific environments (like cron's) to be able to access them.
-  file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item.name }}"
-        dest="/usr/bin/{{ item.name }}" state=link mode="u+rwx,g+rx,o+rx"
+### ---- Symlink version-agnostic and version-aware global libs
+- name: Include symlinking routine
+  include: _symlink.yml
   loop: "{{ nvm_install_globally }}"
-  when: item.name is defined and package_stats.stat.exists
-
-- name: "Stats over {{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item }}"
-  stat:
-    path: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item }}"
-  register: package_stats
-
-- name: Symlink global packages into PATH for specific environments (like cron's) to be able to access them.
-  file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item }}"
-        dest="/usr/bin/{{ item }}" state=link mode="u+rwx,g+rx,o+rx"
-  loop: "{{ nvm_install_globally }}"
-  when: item.name is not defined and package_stats.stat.exists
-
 ### --------------- END ------------- ####
