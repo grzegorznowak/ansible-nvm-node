@@ -57,7 +57,15 @@
     install --global {{ item.name }}@{{ item.version }}"
     creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item.name }}"
   loop: "{{ nvm_install_globally }}"
-  when: item.name is defined and item.version is defined
+  when: item.name is defined and item.version is defined and item.flags is not defined
+
+- name: Install global packages (version, flags and name given)
+  shell:
+    cmd: ". /root/.bashrc && {{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm \
+    install --global {{ item.flags }} {{ item.name }}@{{ item.version }}"
+    creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item.name }}"
+  loop: "{{ nvm_install_globally }}"
+  when: item.name is defined and item.version is defined and item.flags is defined
 
 - name: Install global packages (name given in plain string - hopefully)
   shell:
@@ -65,15 +73,24 @@
     install --global {{ item }}"
     creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item }}"
   loop: "{{ nvm_install_globally }}"
-  when: item.name is not defined and item.version is not defined
+  when: item.name is not defined
 
-- name: Install global packages (name given in a dictionary)
+- name: Install global packages (just name given in a dictionary)
   shell:
     cmd: ". /root/.bashrc && {{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm \
     install --global {{ item.name }}"
     creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item.name }}"
   loop: "{{ nvm_install_globally }}"
-  when: item.name is defined and item.version is not defined
+  when: item.name is defined and item.version is not defined and item.flags is not defined
+
+- name: Install global packages (name and flags given in a dictionary )
+  shell:
+    cmd: ". /root/.bashrc && {{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm \
+    install --global {{ item.flags }} {{ item.name }}"
+    creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item.name }}"
+  loop: "{{ nvm_install_globally }}"
+  when: item.name is defined and item.version is not defined and item.flags is defined
+
 
 ### --------------- END ------------- ####
 
