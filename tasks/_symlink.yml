@@ -7,10 +7,6 @@
   register: package_stats_1
   when: item.name is defined
 
-- debug:
-    var: package_stats_1
-  changed_when: true
-
 - name: Symlink global packages into PATH for specific environments (like cron's) to be able to access them.
   file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item.name }}"
         dest="/usr/bin/{{ item.name }}" state=link mode="u+rwx,g+rx,o+rx"
@@ -21,10 +17,6 @@
     path: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item }}"
   register: package_stats_2
   when: item.name is not defined
-
-- debug:
-    var: package_stats_2
-  changed_when: true
 
 - name: Symlink global packages into PATH for specific environments (like cron's) to be able to access them.
   file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item }}"

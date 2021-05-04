@@ -55,7 +55,7 @@
   shell:
     cmd: ". /root/.bashrc && {{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm \
     install --global {{ item.name }}@{{ item.version }}"
-    creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item.name }}"
+    creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/lib/node_modules/{{ item.name }}"
   loop: "{{ nvm_install_globally }}"
   when: item.name is defined and item.version is defined and item.flags is not defined
 
@@ -63,7 +63,7 @@
   shell:
     cmd: ". /root/.bashrc && {{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm \
     install --global {{ item.flags }} {{ item.name }}@{{ item.version }}"
-    creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item.name }}"
+    creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/lib/node_modules/{{ item.name }}"
   loop: "{{ nvm_install_globally }}"
   when: item.name is defined and item.version is defined and item.flags is defined
 
@@ -71,7 +71,7 @@
   shell:
     cmd: ". /root/.bashrc && {{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm \
     install --global {{ item }}"
-    creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item }}"
+    creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/lib/node_modules/{{ item }}"
   loop: "{{ nvm_install_globally }}"
   when: item.name is not defined
 
@@ -79,7 +79,7 @@
   shell:
     cmd: ". /root/.bashrc && {{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm \
     install --global {{ item.name }}"
-    creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item.name }}"
+    creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/lib/node_modules/{{ item.name }}"
   loop: "{{ nvm_install_globally }}"
   when: item.name is defined and item.version is not defined and item.flags is not defined
 
@@ -87,7 +87,7 @@
   shell:
     cmd: ". /root/.bashrc && {{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm \
     install --global {{ item.flags }} {{ item.name }}"
-    creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/{{ item.name }}"
+    creates: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/lib/node_modules/{{ item.name }}"
   loop: "{{ nvm_install_globally }}"
   when: item.name is defined and item.version is not defined and item.flags is defined
 
