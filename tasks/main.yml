@@ -98,5 +98,4 @@
 ### ---- Symlink version-agnostic and version-aware global libs
 - name: Include symlinking routine
   include: _symlink.yml
-  loop: "{{ nvm_install_globally }}"
 ### --------------- END ------------- ####
