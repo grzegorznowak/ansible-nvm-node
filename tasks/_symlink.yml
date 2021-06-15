@@ -15,4 +15,3 @@
     state: link
     mode: "u+rwx,g+rx,o+rx"
   loop: "{{ find_result.files }}"
-  changed_when: true
