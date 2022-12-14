@@ -1,12 +1,12 @@
 ---
-- include: setup-Redhat.yml
+- include_tasks: setup-Redhat.yml
   when: ansible_os_family == "RedHat"
 
-- include: setup-Debian.yml
+- include_tasks: setup-Debian.yml
   when: ansible_os_family == "Debian"
 
   # make it so that anyone can use it!
-- name: Create the target VNM dir
+- name: Create the target NVM dir
   file: path="{{ nvm_dir }}" state=directory owner="{{ nvm_user_name }}" mode="o+rwx"
 
   # variablize the name of the installation script so it fire installation script properly when
@@ -43,10 +43,12 @@
 - name: Make the node binary always discoverable by symlinking to a system bin PATH that cron sees by default too
   file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/node"
         dest="/usr/bin/node" state=link mode="u+rwx,g+rx,o+rx"
+  when: nvm_link_global == "yes"
 
 - name: Make the npm binary always discoverable by symlinking to a system bin PATH that cron sees by default too
   file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/npm"
         dest="/usr/bin/npm" state=link mode="u+rwx,g+rx,o+rx"
+  when: nvm_link_global == "yes"
 
 ### ---- Install version-agnostic and version-aware version of globals ---- ###
 ### TODO: DRY it some way smart

@@ -15,3 +15,4 @@
     state: link
     mode: "u+rwx,g+rx,o+rx"
   loop: "{{ find_result.files }}"
+  when: nvm_link_global == "yes"
