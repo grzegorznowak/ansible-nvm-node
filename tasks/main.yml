@@ -40,9 +40,21 @@
              [ -s \"$NVM_DIR/bash_completion\" ] && \. \"$NVM_DIR/bash_completion\""
   when: ansible_os_family == "RedHat"
 
+- name: Remove original node binary before symlink
+  file:
+    path: "/usr/bin/node"
+    state: absent
+  when: nvm_link_global == "yes"
+
 - name: Make the node binary always discoverable by symlinking to a system bin PATH that cron sees by default too
   file: src="{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin/node"
         dest="/usr/bin/node" state=link mode="u+rwx,g+rx,o+rx"
+  when: nvm_link_global == "yes"
+
+- name: Remove original npm binary before symlink
+  file:
+    path: "/usr/bin/npm"
+    state: absent
   when: nvm_link_global == "yes"
 
 - name: Make the npm binary always discoverable by symlinking to a system bin PATH that cron sees by default too
