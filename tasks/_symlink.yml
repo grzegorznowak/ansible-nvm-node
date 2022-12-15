@@ -8,6 +8,13 @@
     file_type: any
   register: find_result
 
+- name: Remove original global packages before symlink
+  file:
+    path: "/usr/bin/{{ item.path | basename }}"
+    state: absent
+  loop: "{{ find_result.files }}"
+  when: nvm_link_global == "yes"
+
 - name: Symlink global packages into PATH for specific environments (like cron's) to be able to access them.
   file:
     src: "{{ item.path }}"
@@ -15,3 +22,4 @@
     state: link
     mode: "u+rwx,g+rx,o+rx"
   loop: "{{ find_result.files }}"
+  when: nvm_link_global == "yes"
