@@ -111,5 +111,5 @@
 
 ### ---- Symlink version-agnostic and version-aware global libs
 - name: Include symlinking routine
-  include: _symlink.yml
+  include_tasks: _symlink.yml
 ### --------------- END ------------- ####
