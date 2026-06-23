@@ -20,7 +20,7 @@ And __0%__ if you plan having many users/roles using it on a single server - it'
 (though might work at some point with relatively minimal extra love added).
 
 The crux is it installs nvm into a global path and symlinks it back to `/usr/local/bin` for general accessibility, and hijacks global bashrc to include the NVM's paths for each user on the system.
-Which although minor, breaks the concept of VNM being a per-user tool, as well as not working 100% flawlessly when specific non-interactive shells are used. This might affect usage of npm installed packages for those cases.
+Which although minor, breaks the concept of NVM being a per-user tool, as well as not working 100% flawlessly when specific non-interactive shells are used. This might affect usage of npm installed packages for those cases.
 __However__ a cool cat as it is, nvm really is the tool of our choice so that's the way we need it and might be you need it too!
  
 ## Requirements
